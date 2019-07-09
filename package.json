@@ -1,0 +1,22 @@
+{
+  "name": "spy-batterie",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^5.0.6"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "hyperx": "^2.5.4",
+    "jquery": "^3.4.1",
+    "preact": "^8.4.2",
+    "systeminformation": "^4.14.3"
+  }
+}
