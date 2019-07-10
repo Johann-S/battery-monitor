@@ -13,6 +13,7 @@
     "electron": "^5.0.6"
   },
   "dependencies": {
+    "@mdi/font": "^3.7.95",
     "bootstrap": "^4.3.1",
     "hyperx": "^2.5.4",
     "jquery": "^3.4.1",
