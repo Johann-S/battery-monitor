@@ -66,5 +66,4 @@ class App extends Component {
   }
 }
 
-// render an instance of Clock into <body>:
 render(h(App), document.body)
