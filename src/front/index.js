@@ -54,8 +54,7 @@ class App extends Component {
 
   render({}, { batteryInfo }) {
     return hx`
-    <div class="container">
-      <h1 class="text-center">Monitoring your batterie</h1>
+    <div class="container mt-3">
       <div class="custom-control custom-switch d-inline-block" onClick=${() => this.changeRefreshAuto()}>
         <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
         <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
