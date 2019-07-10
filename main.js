@@ -1,62 +1,10 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu, Notification } = require('electron')
+const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
 const path = require('path')
-const { getBatteryInformation, getBatteryImage } = require('./src/back/battery-helper')
+const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./src/back/battery-helper')
 const intervalTrayIcon = 10000
 
 let appTray
 let win
-
-const state = {
-  twentyPercentWarned: false,
-  tenPercentWarned: false
-}
-
-const monitorBattery = () => {
-  getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
-    const iconName = getBatteryImage(hasbattery, percent, ischarging)
-    const iconPath = path.join(`${__dirname}/battery-icon`, iconName)
-    const iconWhitePath = path.join(`${__dirname}/battery-icon/white`, iconName)
-
-    appTray.setImage(iconWhitePath)
-    win.setIcon(iconPath)
-
-    if (!hasbattery || !Notification.isSupported()) {
-      return
-    }
-
-    if (percent > 10 && state.tenPercentWarned) {
-      state.tenPercentWarned = false
-    }
-
-    if (percent > 20 && state.twentyPercentWarned) {
-      state.twentyPercentWarned = false
-    }
-
-    if (percent < 10 && !state.tenPercentWarned) {
-      const notification = new Notification({
-        title: `You're under 10% of your battery level`,
-        body: 'You should charge your battery as soon as possible',
-        icon: iconPath
-      })
-
-      notification.show()
-      state.tenPercentWarned = true
-
-      return
-    }
-
-    if (percent < 20 && !state.twentyPercentWarned) {
-      const notification = new Notification({
-        title: `You're under 20% of your battery level`,
-        body: `You should keep in mind you'll have to charge your battery`,
-        icon: iconPath
-      })
-
-      notification.show()
-      state.twentyPercentWarned = true
-    }
-  })
-}
 
 app.on('ready', () => {
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
@@ -68,6 +16,9 @@ app.on('ready', () => {
       width: 330,
       height: 450,
       icon: iconPath,
+      center: true,
+      resizable: false,
+      maximizable: false,
       webPreferences: {
         nodeIntegration: true
       }
@@ -91,7 +42,7 @@ app.on('ready', () => {
     appTray = new Tray(iconWhitePath)
     appTray.setContextMenu(contextMenu)
     appTray.setToolTip('Battery monitor')
-    setInterval(() => monitorBattery(), intervalTrayIcon)
+    setInterval(() => monitorBattery(appTray, win), intervalTrayIcon)
 
     ipcMain.on('get-battery-info', event => {
       getBatteryInformation()
