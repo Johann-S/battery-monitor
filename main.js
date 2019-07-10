@@ -65,8 +65,8 @@ app.on('ready', () => {
     const iconWhitePath = path.join(`${__dirname}/battery-icon/white`, iconName)
 
     win = new BrowserWindow({
-      width: 800,
-      height: 600,
+      width: 330,
+      height: 450,
       icon: iconPath,
       webPreferences: {
         nodeIntegration: true
@@ -90,6 +90,7 @@ app.on('ready', () => {
 
     appTray = new Tray(iconWhitePath)
     appTray.setContextMenu(contextMenu)
+    appTray.setToolTip('Battery monitor')
     setInterval(() => monitorBattery(), intervalTrayIcon)
 
     ipcMain.on('get-battery-info', event => {

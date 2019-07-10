@@ -68,12 +68,14 @@ class BatteryInformation extends Component {
 
     return hx`
       <div class="row mt-3">
-        <div class="col-3 text-center">
-          <p>Percent: <strong>${data.percent}</strong></p>
-          <p>State: <strong>${data.ischarging ? 'Charging' : 'Discharging'}</strong></p>
-        </div>
-        <div class="col-9 text-center">
+        <div class="col-12 text-center">
+          <span>
+            <strong>${data.ischarging ? 'Charging' : 'Discharging'}</strong>
+          </span>
           <span id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></span>
+          <span>
+            <strong>${data.percent}%</strong>
+          </span>
         </div>
       </div>
     `
