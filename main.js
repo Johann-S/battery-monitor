@@ -12,11 +12,12 @@ const state = {
 }
 
 const monitorBattery = () => {
-  getBatteryInformation().then(({ hasbattery, percent }) => {
-    const iconName = getBatteryImage(hasbattery, percent)
+  getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
+    const iconName = getBatteryImage(hasbattery, percent, ischarging)
     const iconPath = path.join(`${__dirname}/battery-icon`, iconName)
+    const iconWhitePath = path.join(`${__dirname}/battery-icon/white`, iconName)
 
-    appTray.setImage(iconPath)
+    appTray.setImage(iconWhitePath)
     win.setIcon(iconPath)
 
     if (!hasbattery || !Notification.isSupported()) {
@@ -58,9 +59,11 @@ const monitorBattery = () => {
 }
 
 app.on('ready', () => {
-  getBatteryInformation().then(({ hasbattery, percent }) => {
-    const iconName = getBatteryImage(hasbattery, percent)
+  getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
+    const iconName = getBatteryImage(hasbattery, percent, ischarging)
     const iconPath = path.join(`${__dirname}/battery-icon`, iconName)
+    const iconWhitePath = path.join(`${__dirname}/battery-icon/white`, iconName)
+
     win = new BrowserWindow({
       width: 800,
       height: 600,
@@ -85,7 +88,7 @@ app.on('ready', () => {
       }
     ])
 
-    appTray = new Tray(iconPath)
+    appTray = new Tray(iconWhitePath)
     appTray.setContextMenu(contextMenu)
     setInterval(() => monitorBattery(), intervalTrayIcon)
 

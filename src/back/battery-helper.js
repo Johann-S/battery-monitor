@@ -10,6 +10,7 @@ const batteryStates = {
   '70': '70.ico',
   '80': '80.ico',
   '90': '90.ico',
+  charging: 'charging.ico',
   full: 'full.ico',
   unknown: 'unknown.ico'
 }
@@ -23,9 +24,13 @@ const getBatteryInformation = () => new Promise(resolve => {
   }))
 })
 
-const getBatteryImage = (hasBattery, percent) => {
+const getBatteryImage = (hasBattery, percent, ischarging) => {
   if (!hasBattery) {
     return batteryStates.unknown
+  }
+
+  if (ischarging) {
+    return batteryStates.charging
   }
 
   if (percent < 10) {
