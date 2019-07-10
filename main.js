@@ -14,7 +14,7 @@ const monitorBattery = () => {
     appTray.setImage(iconPath)
     win.setIcon(iconPath)
 
-    if (!hasbattery) {
+    if (!hasbattery || !Notification.isSupported()) {
       return
     }
 
