@@ -6,6 +6,11 @@ const intervalTrayIcon = 10000
 let appTray
 let win
 
+const state = {
+  twentyPercentWarned: false,
+  tenPercentWarned: false
+}
+
 const monitorBattery = () => {
   getBatteryInformation().then(({ hasbattery, percent }) => {
     const iconName = getBatteryImage(hasbattery, percent)
@@ -18,7 +23,15 @@ const monitorBattery = () => {
       return
     }
 
-    if (percent < 10) {
+    if (percent > 10 && state.tenPercentWarned) {
+      state.tenPercentWarned = false
+    }
+
+    if (percent > 20 && state.twentyPercentWarned) {
+      state.twentyPercentWarned = false
+    }
+
+    if (percent < 10 && !state.tenPercentWarned) {
       const notification = new Notification({
         title: `You're under 10% of your battery level`,
         body: 'You should charge your battery as soon as possible',
@@ -26,9 +39,10 @@ const monitorBattery = () => {
       })
 
       notification.show()
+      state.tenPercentWarned = true
     }
 
-    if (percent < 20) {
+    if (percent < 20 && !state.twentyPercentWarned) {
       const notification = new Notification({
         title: `You're under 20% of your battery level`,
         body: `You should keep in mind you'll have to charge your battery`,
@@ -36,6 +50,7 @@ const monitorBattery = () => {
       })
 
       notification.show()
+      state.twentyPercentWarned = true
     }
   })
 }
