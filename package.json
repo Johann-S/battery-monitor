@@ -2,16 +2,15 @@
   "name": "spy-batterie",
   "version": "1.0.0",
   "description": "",
+  "private": true,
   "main": "index.js",
   "scripts": {
+    "prestart": "webpack --mode development --config webpack.config.js",
     "start": "electron main.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "devDependencies": {
-    "electron": "^5.0.6"
-  },
   "dependencies": {
     "@mdi/font": "^3.7.95",
     "bootstrap": "^4.3.1",
@@ -19,5 +18,10 @@
     "jquery": "^3.4.1",
     "preact": "^8.4.2",
     "systeminformation": "^4.14.3"
+  },
+  "devDependencies": {
+    "electron": "^5.0.6",
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5"
   }
 }
