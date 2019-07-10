@@ -4,9 +4,13 @@ import hyperx from 'hyperx'
 const hx = hyperx(h)
 
 class BatteryInformation extends Component {
-  getBatteryIcon(hasBattery, percent) {
-    if (!hasBattery) {
+  getBatteryIcon({hasbattery, percent, ischarging}) {
+    if (!hasbattery) {
       return 'mdi-battery-unknown'
+    }
+
+    if (ischarging) {
+      return 'mdi-battery-charging'
     }
 
     if (percent < 10) {
@@ -64,11 +68,12 @@ class BatteryInformation extends Component {
 
     return hx`
       <div class="row mt-3">
-        <div class="col-4">
+        <div class="col-3 text-center">
           <p>Percent: <strong>${data.percent}</strong></p>
+          <p>State: <strong>${data.ischarging ? 'Charging' : 'Discharging'}</strong></p>
         </div>
-        <div class="col-8 text-center">
-          <span class="mdi mdi-48px ${this.getBatteryIcon(data.hasbattery, data.percent)} align-middle"></span>
+        <div class="col-9 text-center">
+          <span id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></span>
         </div>
       </div>
     `

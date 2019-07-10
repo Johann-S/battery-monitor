@@ -1,7 +1,7 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/front/index.js',
+  entry: './src/front/js/index.js',
   target: 'electron-renderer',
   devtool: 'source-map',
   output: {

@@ -1,0 +1,17 @@
+#batteryPreview {
+  font-size: 150px;
+}
+
+.content {
+  height: 90%;
+  align-items: center;
+  display: flex;
+}
+
+.h-98 {
+  height: 98%;
+}
+
+.h-90 {
+  height: 90%;
+}

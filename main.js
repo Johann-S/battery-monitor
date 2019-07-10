@@ -40,6 +40,8 @@ const monitorBattery = () => {
 
       notification.show()
       state.tenPercentWarned = true
+
+      return
     }
 
     if (percent < 20 && !state.twentyPercentWarned) {

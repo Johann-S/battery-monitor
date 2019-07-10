@@ -48,16 +48,16 @@ class App extends Component {
 
   render({}, { batteryInfo }) {
     return hx`
-    <div class="container mt-3">
-      <div class="row">
-        <div class="col-12">
-          <div class="custom-control custom-switch d-inline-block" onClick=${() => this.changeRefreshAuto()}>
-            <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
-            <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
-          </div>
+    <div class="h-90">
+      <div class="custom-control custom-switch mt-1 ml-1" onClick=${() => this.changeRefreshAuto()}>
+        <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
+        <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
+      </div>
+      <div class="content justify-content-center">
+        <div class="container">
+          ${!batteryInfo ? '' : this.renderBatteryInfo()}
         </div>
       </div>
-      ${!batteryInfo ? '' : this.renderBatteryInfo()}
     </div>
     `
   }
