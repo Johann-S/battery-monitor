@@ -93,6 +93,7 @@ const monitorBattery = (settings, appTray, win) => {
     const iconWhitePath = path.join(`${__dirname}/../../icon/white`, iconName)
 
     appTray.setImage(iconWhitePath)
+    appTray.setToolTip(`Battery monitor (${percent}%)`)
     win.setIcon(iconPath)
 
     if (!hasbattery || !Notification.isSupported()) {
@@ -121,6 +122,10 @@ const monitorBattery = (settings, appTray, win) => {
       notification.show()
       state.chargingOneHundredPercent = true
 
+      return
+    }
+
+    if (ischarging) {
       return
     }
 

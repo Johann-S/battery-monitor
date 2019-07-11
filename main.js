@@ -48,7 +48,7 @@ app.on('ready', () => {
 
     appTray = new Tray(iconWhitePath)
     appTray.setContextMenu(contextMenu)
-    appTray.setToolTip('Battery monitor')
+    appTray.setToolTip(`Battery monitor (${percent}%)`)
     setInterval(() => monitorBattery(settings, appTray, win), intervalTrayIcon)
 
     ipcMain.on('get-battery-info', event => {
