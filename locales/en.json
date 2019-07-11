@@ -1,0 +1,16 @@
+{
+  "show": "Show",
+  "quit": "Quit",
+  "battery100": {
+    "title": "Your battery is at 100%",
+    "message": "You should stop charging your battery"
+  },
+  "battery10": {
+    "title": "Your battery is under 10%",
+    "message": "You should charge your battery as soon as possible"
+  },
+  "battery20": {
+    "title": "Your battery is under 20%",
+    "message": "You should keep in mind you'll have to charge your battery"
+  }
+}

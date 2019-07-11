@@ -1,7 +1,9 @@
 const path = require('path')
 const { Notification } = require('electron')
 const si = require('systeminformation')
+const Translator = require('./translator')
 
+const translator = new Translator()
 const state = {
   twentyPercentWarned: false,
   tenPercentWarned: false,
@@ -111,8 +113,8 @@ const monitorBattery = (settings, appTray, win) => {
 
     if ((ischarging && percent === 100) && !state.chargingOneHundredPercent && settings.get('notif-max')) {
       const notification = new Notification({
-        title: `Your battery is at 100%`,
-        body: 'You should stop charging your battery',
+        title: translator.translate('battery100.title'),
+        body: translator.translate('battery100.message'),
         icon: iconWhitePath
       })
 
@@ -124,8 +126,8 @@ const monitorBattery = (settings, appTray, win) => {
 
     if (percent < 10 && !state.tenPercentWarned && settings.get('notif-ten')) {
       const notification = new Notification({
-        title: `You're under 10% of your battery level`,
-        body: 'You should charge your battery as soon as possible',
+        title: translator.translate('battery10.title'),
+        body: translator.translate('battery10.message'),
         icon: iconWhitePath
       })
 
@@ -135,10 +137,10 @@ const monitorBattery = (settings, appTray, win) => {
       return
     }
 
-    if (percent < 20 && !state.twentyPercentWarned && settings.get('notif-twenty')) {
+    if (percent < 20 && percent > 10 && !state.twentyPercentWarned && settings.get('notif-twenty')) {
       const notification = new Notification({
-        title: `You're under 20% of your battery level`,
-        body: `You should keep in mind you'll have to charge your battery`,
+        title: translator.translate('battery20.title'),
+        body: translator.translate('battery20.message'),
         icon: iconWhitePath
       })
 

@@ -2,6 +2,8 @@ const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
 const path = require('path')
 const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./src/back/battery-helper')
 const Settings = require('./src/back/settings')
+const Translator = require('./src/back/translator')
+
 const intervalTrayIcon = 10000
 
 let appTray
@@ -10,6 +12,7 @@ let winSettings
 
 app.on('ready', () => {
   const settings = new Settings()
+  const translator = new Translator()
 
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
@@ -30,13 +33,13 @@ app.on('ready', () => {
 
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: 'Show',
+        label: translator.translate('show'),
         click() {
           win.show()
         }
       },
       {
-        label: 'Quit',
+        label: translator.translate('quit'),
         click() {
           app.quit()
         }
