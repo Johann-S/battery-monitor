@@ -4,13 +4,25 @@ import hyperx from 'hyperx'
 const hx = hyperx(h)
 
 class Settings extends Component {
+  componentDidMount() {
+    this.customCtrlInputList = document.querySelectorAll('.custom-control-input')
+
+    ipcRenderer.on('settings', (event, settings) => {
+      this.customCtrlInputList.forEach(customCtrlInput => {
+        if (settings[customCtrlInput.getAttribute('name')]) {
+          customCtrlInput.checked = true
+        }
+      })
+    })
+    ipcRenderer.send('get-settings')
+  }
+
   close() {
     const newSettings = {}
 
-    document.querySelectorAll('.custom-control-input')
-      .forEach(customCtrlInput => {
-        newSettings[customCtrlInput.getAttribute('name')] = customCtrlInput.checked
-      })
+    this.customCtrlInputList.forEach(customCtrlInput => {
+      newSettings[customCtrlInput.getAttribute('name')] = customCtrlInput.checked
+    })
 
     ipcRenderer.send('close-settings', newSettings)
   }

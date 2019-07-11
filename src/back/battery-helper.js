@@ -84,7 +84,7 @@ const getBatteryImage = (hasBattery, percent, ischarging) => {
   return batteryStates.full
 }
 
-const monitorBattery = (appTray, win) => {
+const monitorBattery = (settings, appTray, win) => {
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
     const iconPath = path.join(`${__dirname}/../../icon`, iconName)
@@ -109,7 +109,7 @@ const monitorBattery = (appTray, win) => {
       state.chargingOneHundredPercent = false
     }
 
-    if ((ischarging && percent === 100) && !state.chargingOneHundredPercent) {
+    if ((ischarging && percent === 100) && !state.chargingOneHundredPercent && settings.get('notif-max')) {
       const notification = new Notification({
         title: `Your battery is at 100%`,
         body: 'You should stop charging your battery',
@@ -122,7 +122,7 @@ const monitorBattery = (appTray, win) => {
       return
     }
 
-    if (percent < 10 && !state.tenPercentWarned) {
+    if (percent < 10 && !state.tenPercentWarned && settings.get('notif-ten')) {
       const notification = new Notification({
         title: `You're under 10% of your battery level`,
         body: 'You should charge your battery as soon as possible',
@@ -135,7 +135,7 @@ const monitorBattery = (appTray, win) => {
       return
     }
 
-    if (percent < 20 && !state.twentyPercentWarned) {
+    if (percent < 20 && !state.twentyPercentWarned && settings.get('notif-twenty')) {
       const notification = new Notification({
         title: `You're under 20% of your battery level`,
         body: `You should keep in mind you'll have to charge your battery`,

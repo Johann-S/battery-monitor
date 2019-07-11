@@ -46,11 +46,15 @@ app.on('ready', () => {
     appTray = new Tray(iconWhitePath)
     appTray.setContextMenu(contextMenu)
     appTray.setToolTip('Battery monitor')
-    setInterval(() => monitorBattery(appTray, win), intervalTrayIcon)
+    setInterval(() => monitorBattery(settings, appTray, win), intervalTrayIcon)
 
     ipcMain.on('get-battery-info', event => {
       getBatteryInformation()
         .then(batteryInformation => event.reply('battery-info', batteryInformation))
+    })
+
+    ipcMain.on('get-settings', event => {
+      event.reply('settings', settings.getAll())
     })
 
     ipcMain.on('open-settings', () => {
@@ -60,7 +64,9 @@ app.on('ready', () => {
         show: false,
         frame: false,
         width: 530,
-        height: 380,
+        height: 400,
+        center: true,
+        resizable: false,
         webPreferences: {
           nodeIntegration: true
         }
