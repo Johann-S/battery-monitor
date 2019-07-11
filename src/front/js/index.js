@@ -19,7 +19,11 @@ class App extends Component {
   }
 
   initAutoRefresh() {
-    this.intervalRefresh = setInterval(() => ipcRenderer.send('get-battery-info'), refreshInterval)
+    this.intervalRefresh = setInterval(() => {
+      if (!document.hidden) {
+        ipcRenderer.send('get-battery-info')
+      }
+    }, refreshInterval)
   }
 
   renderBatteryInfo() {
