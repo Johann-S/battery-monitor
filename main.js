@@ -5,12 +5,13 @@ const intervalTrayIcon = 10000
 
 let appTray
 let win
+let winSettings
 
 app.on('ready', () => {
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
-    const iconPath = path.join(`${__dirname}/battery-icon`, iconName)
-    const iconWhitePath = path.join(`${__dirname}/battery-icon/white`, iconName)
+    const iconPath = path.join(`${__dirname}/icon`, iconName)
+    const iconWhitePath = path.join(`${__dirname}/icon/white`, iconName)
 
     win = new BrowserWindow({
       width: 330,
@@ -48,6 +49,27 @@ app.on('ready', () => {
       getBatteryInformation()
         .then(batteryInformation => event.reply('battery-info', batteryInformation))
     })
+
+    ipcMain.on('close-settings', () => winSettings.close())
+    ipcMain.on('open-settings', () => {
+      winSettings = new BrowserWindow({
+        parent: win,
+        modal: true,
+        show: false,
+        frame: false,
+        width: 530,
+        height: 380,
+        webPreferences: {
+          nodeIntegration: true
+        }
+      })
+
+      winSettings.loadFile('settings.html')
+      winSettings.once('ready-to-show', () => {
+        winSettings.show()
+      })
+    })
+
 
     win.on('minimize', event => {
       event.preventDefault()

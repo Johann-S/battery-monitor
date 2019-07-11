@@ -87,8 +87,8 @@ const getBatteryImage = (hasBattery, percent, ischarging) => {
 const monitorBattery = (appTray, win) => {
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
-    const iconPath = path.join(`${__dirname}/../../battery-icon`, iconName)
-    const iconWhitePath = path.join(`${__dirname}/../../battery-icon/white`, iconName)
+    const iconPath = path.join(`${__dirname}/../../icon`, iconName)
+    const iconWhitePath = path.join(`${__dirname}/../../icon/white`, iconName)
 
     appTray.setImage(iconWhitePath)
     win.setIcon(iconPath)

@@ -1,11 +1,14 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/front/js/index.js',
+  entry: {
+    main: './src/front/js/index.js',
+    settings: './src/front/js/settings.js'
+  },
   target: 'electron-renderer',
   devtool: 'source-map',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: '[name].js'
   }
 }

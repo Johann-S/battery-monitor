@@ -46,12 +46,27 @@ class App extends Component {
     this.chkAutoRefreshEl.checked = this.state.refreshAuto
   }
 
+  openSettings() {
+    ipcRenderer.send('open-settings')
+  }
+
   render({}, { batteryInfo }) {
     return hx`
     <div class="h-90">
-      <div class="custom-control custom-switch mt-1 ml-1" onClick=${() => this.changeRefreshAuto()}>
-        <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
-        <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
+      <div class="container mt-1">
+        <div class="row">
+          <div class="col-6 pl-1">
+            <div class="custom-control custom-switch" onClick=${() => this.changeRefreshAuto()}>
+              <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
+              <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
+            </div>
+          </div>
+          <div class="col-6 pr-1">
+            <button type="button" class="btn btn-light float-right" onClick=${() => this.openSettings()}>
+              <span class="mdi mdi-settings"></span>
+            </button>
+          </div>
+        </div>
       </div>
       <div class="content justify-content-center">
         <div class="container">
