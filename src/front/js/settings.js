@@ -5,7 +5,14 @@ const hx = hyperx(h)
 
 class Settings extends Component {
   close() {
-    ipcRenderer.send('close-settings')
+    const newSettings = {}
+
+    document.querySelectorAll('.custom-control-input')
+      .forEach(customCtrlInput => {
+        newSettings[customCtrlInput.getAttribute('name')] = customCtrlInput.checked
+      })
+
+    ipcRenderer.send('close-settings', newSettings)
   }
 
   render() {
@@ -30,7 +37,7 @@ class Settings extends Component {
               <div class="col-sm-12">
                 <div class="form-check">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="chkAutoStartApp">
+                    <input type="checkbox" class="custom-control-input" name="auto-start" id="chkAutoStartApp">
                     <label class="custom-control-label" for="chkAutoStartApp">Auto-start application</label>
                   </div>
                 </div>
@@ -40,7 +47,7 @@ class Settings extends Component {
               <div class="col-sm-12">
                 <div class="form-check">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="chkChargeMax">
+                    <input type="checkbox" class="custom-control-input" name="notif-max" id="chkChargeMax">
                     <label class="custom-control-label" for="chkChargeMax">Notify me when I continue to charge my batterie at 100%</label>
                   </div>
                 </div>
@@ -50,7 +57,7 @@ class Settings extends Component {
               <div class="col-sm-12">
                 <div class="form-check">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="chkChargeTwenty">
+                    <input type="checkbox" class="custom-control-input" name="notif-twenty" id="chkChargeTwenty">
                     <label class="custom-control-label" for="chkChargeTwenty">Notify me when my battery level is under 20%</label>
                   </div>
                 </div>
@@ -60,7 +67,7 @@ class Settings extends Component {
               <div class="col-sm-12">
                 <div class="form-check">
                   <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="chkChargeTen">
+                    <input type="checkbox" class="custom-control-input" name="notif-ten" id="chkChargeTen">
                     <label class="custom-control-label" for="chkChargeTen">Notify me when my battery level is under 10%</label>
                   </div>
                 </div>

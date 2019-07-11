@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
 const path = require('path')
 const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./src/back/battery-helper')
+const Settings = require('./src/back/settings')
 const intervalTrayIcon = 10000
 
 let appTray
@@ -8,6 +9,8 @@ let win
 let winSettings
 
 app.on('ready', () => {
+  const settings = new Settings()
+
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
     const iconPath = path.join(`${__dirname}/icon`, iconName)
@@ -50,7 +53,6 @@ app.on('ready', () => {
         .then(batteryInformation => event.reply('battery-info', batteryInformation))
     })
 
-    ipcMain.on('close-settings', () => winSettings.close())
     ipcMain.on('open-settings', () => {
       winSettings = new BrowserWindow({
         parent: win,
@@ -69,7 +71,10 @@ app.on('ready', () => {
         winSettings.show()
       })
     })
-
+    ipcMain.on('close-settings', (event, newSettings) => {
+      settings.setAll(newSettings)
+      winSettings.close()
+    })
 
     win.on('minimize', event => {
       event.preventDefault()

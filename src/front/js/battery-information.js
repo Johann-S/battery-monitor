@@ -61,7 +61,7 @@ class BatteryInformation extends Component {
       return hx`
         <div class="alert alert-danger text-center mt-2" role="alert">
           <span class="mdi mdi-24px mdi-battery-unknown align-middle"></span>
-          <span class="align-middle">You don't have a battery</span>
+          <span class="align-middle">No battery</span>
         </div>
       `
     }
