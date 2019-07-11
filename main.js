@@ -14,6 +14,8 @@ app.on('ready', () => {
   const settings = new Settings()
   const translator = new Translator()
 
+  global.translator = translator
+
   getBatteryInformation().then(({ hasbattery, percent, ischarging }) => {
     const iconName = getBatteryImage(hasbattery, percent, ischarging)
     const iconPath = path.join(`${__dirname}/icon`, iconName)

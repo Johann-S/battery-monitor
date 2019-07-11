@@ -1,5 +1,5 @@
 import { h, render, Component } from 'preact'
-import { ipcRenderer } from 'electron'
+import { ipcRenderer, remote } from 'electron'
 import hyperx from 'hyperx'
 const hx = hyperx(h)
 const refreshInterval = 4000
@@ -8,6 +8,10 @@ const refreshInterval = 4000
 import BatteryInformation from './battery-information'
 
 class App extends Component {
+  componentWillMount() {
+    this.translator = remote.getGlobal('translator')
+  }
+
   componentDidMount() {
     this.chkAutoRefreshEl = document.getElementById('chkAutoRefresh')
     this.chkAutoRefreshEl.checked = true
@@ -62,7 +66,7 @@ class App extends Component {
           <div class="col-6 pl-1">
             <div class="custom-control custom-switch" onClick=${() => this.changeRefreshAuto()}>
               <input id="chkAutoRefresh" type="checkbox" class="custom-control-input">
-              <label class="custom-control-label align-middle" for="customSwitch1">Refresh auto</label>
+              <label class="custom-control-label align-middle" for="customSwitch1">${this.translator.translate('autoRefresh')}</label>
             </div>
           </div>
           <div class="col-6 pr-1">
