@@ -1,15 +1,17 @@
 {
-  "name": "spy-batterie",
+  "name": "Battery monitor",
   "version": "1.0.0",
-  "description": "",
+  "description": "An app to monitor your battery",
+  "author": {
+    "name": "Johann-S",
+    "email": "johann.servoire@gmail.com"
+  },
   "private": true,
-  "main": "index.js",
   "scripts": {
     "prestart": "webpack --mode development --config webpack.config.js",
     "start": "electron main.js"
   },
   "keywords": [],
-  "author": "",
   "license": "ISC",
   "dependencies": {
     "@mdi/font": "^3.7.95",
@@ -21,7 +23,21 @@
   },
   "devDependencies": {
     "electron": "^5.0.6",
+    "electron-builder": "^21.0.15",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
+  },
+  "build": {
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
+    }
   }
 }
