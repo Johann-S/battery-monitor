@@ -7,7 +7,8 @@ Features:
   - Display clearly your battery level
   - Auto start on login
   - Settings
+  - Translations (English and french)
+
 
 Coming features:
-  - Translations
   - Auto updater (?)

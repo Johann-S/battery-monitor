@@ -1,5 +1,13 @@
 {
   "autoRefresh": "Auto refresh",
+  "autoStart": "Auto-start application",
+  "charging": "Charging",
+  "discharging": "Discharging",
+  "noBattery": "No battery",
+  "notifMax": "Notify me when my batterie is charging at 100%",
+  "notifTwenty": "Notify me when my battery is under 20%",
+  "notifTen": "Notify me when my battery is under 10%",
+  "settings": "Settings",
   "show": "Show",
   "quit": "Quit",
   "battery100": {

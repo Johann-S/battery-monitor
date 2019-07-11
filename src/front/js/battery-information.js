@@ -1,9 +1,14 @@
 import { h, Component } from 'preact'
+import { remote } from 'electron'
 import hyperx from 'hyperx'
 
 const hx = hyperx(h)
 
 class BatteryInformation extends Component {
+  componentWillMount() {
+    this.translator = remote.getGlobal('translator')
+  }
+
   getBatteryIcon({hasbattery, percent, ischarging}) {
     if (!hasbattery) {
       return 'mdi-battery-unknown'
@@ -61,16 +66,16 @@ class BatteryInformation extends Component {
       return hx`
         <div class="alert alert-danger text-center mt-2" role="alert">
           <span class="mdi mdi-24px mdi-battery-unknown align-middle"></span>
-          <span class="align-middle">No battery</span>
+          <span class="align-middle">${this.translator.translate('noBattery')}</span>
         </div>
       `
     }
 
     return hx`
       <div class="row mt-3">
-        <div class="col-12 text-center">
+        <div class="col-12 pl-0 pr-0 text-center">
           <span>
-            <strong>${data.ischarging ? 'Charging' : 'Discharging'}</strong>
+            <strong>${this.translator.translate(data.ischarging ? 'charging' : 'discharging')}</strong>
           </span>
           <span id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></span>
           <span>

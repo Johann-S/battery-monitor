@@ -1,5 +1,13 @@
 {
-  "autoRefresh": "Rafraichir automatiquement",
+  "autoRefresh": "Rafraichissement",
+  "autoStart": "Démarrage automatique de l'application",
+  "charging": "En charge",
+  "discharging": "Déchargement",
+  "noBattery": "Pas de batterie",
+  "notifMax": "Me prévenir quand ma batterie charge à 100%",
+  "notifTwenty": "Me prévenir quand ma batterie est en dessous de 20%",
+  "notifTen": "Me prévenir quand ma batterie est en dessous de 10%",
+  "settings": "Paramètres",
   "show": "Afficher",
   "quit": "Quitter",
   "battery100": {
