@@ -8,6 +8,18 @@
   display: flex;
 }
 
+.danger {
+  color: #c82333;
+}
+
+.warning {
+  color: #d39e00;
+}
+
+.success {
+  color: #218838;
+}
+
 .h-98 {
   height: 98%;
 }

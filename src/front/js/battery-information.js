@@ -10,50 +10,50 @@ class BatteryInformation extends Component {
     }
 
     if (ischarging) {
-      return 'mdi-battery-charging'
+      return 'mdi-battery-charging success'
     }
 
     if (percent < 10) {
-      return 'mdi-battery-alert'
+      return 'mdi-battery-alert danger'
     }
 
     if (percent < 20) {
-      return 'mdi-battery-10'
+      return 'mdi-battery-10 danger'
     }
 
     if (percent < 30) {
-      return 'mdi-battery-20'
+      return 'mdi-battery-20 danger'
     }
 
     if (percent < 40) {
-      return 'mdi-battery-30'
+      return 'mdi-battery-30 warning'
     }
 
     if (percent < 50) {
-      return 'mdi-battery-40'
+      return 'mdi-battery-40 warning'
     }
 
     if (percent < 60) {
-      return 'mdi-battery-50'
+      return 'mdi-battery-50 warning'
     }
 
     if (percent < 70) {
-      return 'mdi-battery-60'
+      return 'mdi-battery-60 success'
     }
 
     if (percent < 80) {
-      return 'mdi-battery-70'
+      return 'mdi-battery-70 success'
     }
 
     if (percent < 90) {
-      return 'mdi-battery-80'
+      return 'mdi-battery-80 success'
     }
 
     if (percent < 100) {
-      return 'mdi-battery-90'
+      return 'mdi-battery-90 success'
     }
 
-    return 'mdi-battery'
+    return 'mdi-battery success'
   }
 
   render({ data }) {
