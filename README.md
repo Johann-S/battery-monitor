@@ -12,3 +12,9 @@ Features:
   - Settings
   - Translations (English and french)
   - Auto updater
+  - Built for Windows
+
+Features coming:
+  - Mac OS support
+  - About page
+
