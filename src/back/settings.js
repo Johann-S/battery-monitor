@@ -4,32 +4,32 @@ const { app } = require('electron')
 
 // Private
 let data = {}
-let settingsPath = undefined
+let settingsPath
 
 const applySettings = settingsData => {
   app.setLoginItemSettings({ openAtLogin: settingsData['auto-start'] })
 }
 
 class Settings {
-  constructor() {
+  constructor () {
     settingsPath = path.join(app.getPath('userData'), `${path.sep}battery-monitor-settings.json`)
     data = fs.existsSync(settingsPath) ? require(settingsPath) : {}
   }
 
-  get(key) {
+  get (key) {
     return data[key]
   }
 
-  getAll() {
+  getAll () {
     return data
   }
 
-  set(key, value) {
+  set (key, value) {
     data[key] = value
     applySettings(data)
   }
 
-  setAll(settings) {
+  setAll (settings) {
     data = settings
     applySettings(data)
     fs.writeFileSync(settingsPath, JSON.stringify(data))

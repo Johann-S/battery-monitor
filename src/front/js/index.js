@@ -1,18 +1,19 @@
 import { h, render, Component } from 'preact'
 import { ipcRenderer, remote } from 'electron'
 import hyperx from 'hyperx'
-const hx = hyperx(h)
-const refreshInterval = 4000
 
 /** Components */
 import BatteryInformation from './battery-information'
 
+const hx = hyperx(h)
+const refreshInterval = 4000
+
 class App extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.translator = remote.getGlobal('translator')
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.chkAutoRefreshEl = document.getElementById('chkAutoRefresh')
     this.chkAutoRefreshEl.checked = true
     this.setState({ refreshAuto: true, batteryInfo: undefined })
@@ -22,7 +23,7 @@ class App extends Component {
     ipcRenderer.send('get-battery-info')
   }
 
-  initAutoRefresh() {
+  initAutoRefresh () {
     this.intervalRefresh = setInterval(() => {
       if (!document.hidden) {
         ipcRenderer.send('get-battery-info')
@@ -30,7 +31,7 @@ class App extends Component {
     }, refreshInterval)
   }
 
-  renderBatteryInfo() {
+  renderBatteryInfo () {
     const { batteryInfo } = this.state
 
     if (!batteryInfo.hasbattery) {
@@ -42,7 +43,7 @@ class App extends Component {
     return h(BatteryInformation, { data: batteryInfo })
   }
 
-  changeRefreshAuto() {
+  changeRefreshAuto () {
     this.setState({ refreshAuto: !this.state.refreshAuto })
 
     if (!this.state.refreshAuto) {
@@ -54,11 +55,11 @@ class App extends Component {
     this.chkAutoRefreshEl.checked = this.state.refreshAuto
   }
 
-  openSettings() {
+  openSettings () {
     ipcRenderer.send('open-settings')
   }
 
-  render({}, { batteryInfo }) {
+  render (props, { batteryInfo }) {
     return hx`
     <div class="h-90">
       <div class="container mt-1">

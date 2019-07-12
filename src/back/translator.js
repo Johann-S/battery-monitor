@@ -1,13 +1,12 @@
 const path = require('path')
-const fs = require('fs')
 const { app } = require('electron')
 
 // Private
 let data = {}
-const supportedLang = [ 'en', 'fr' ]
+const supportedLang = ['en', 'fr']
 
 class Translator {
-  constructor() {
+  constructor () {
     let currentLang = app.getLocale()
 
     if (!supportedLang.includes(currentLang)) {
@@ -19,7 +18,7 @@ class Translator {
     data = require(localPath)
   }
 
-  translate(key) {
+  translate (key) {
     const splittedKey = key.split('.')
 
     if (!data[splittedKey[0]]) {

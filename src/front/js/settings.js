@@ -4,11 +4,11 @@ import hyperx from 'hyperx'
 const hx = hyperx(h)
 
 class Settings extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.translator = remote.getGlobal('translator')
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this.customCtrlInputList = document.querySelectorAll('.custom-control-input')
 
     ipcRenderer.on('settings', (event, settings) => {
@@ -21,7 +21,7 @@ class Settings extends Component {
     ipcRenderer.send('get-settings')
   }
 
-  close() {
+  close () {
     const newSettings = {}
 
     this.customCtrlInputList.forEach(customCtrlInput => {
@@ -31,7 +31,7 @@ class Settings extends Component {
     ipcRenderer.send('close-settings', newSettings)
   }
 
-  render() {
+  render () {
     return hx`
     <div class="h-90">
       <div class="container mt-2">

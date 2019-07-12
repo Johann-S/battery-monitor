@@ -5,11 +5,11 @@ import hyperx from 'hyperx'
 const hx = hyperx(h)
 
 class BatteryInformation extends Component {
-  componentWillMount() {
+  componentWillMount () {
     this.translator = remote.getGlobal('translator')
   }
 
-  getBatteryIcon({hasbattery, percent, ischarging}) {
+  getBatteryIcon ({ hasbattery, percent, ischarging }) {
     if (!hasbattery) {
       return 'mdi-battery-unknown'
     }
@@ -61,7 +61,7 @@ class BatteryInformation extends Component {
     return 'mdi-battery success'
   }
 
-  render({ data }) {
+  render ({ data }) {
     if (!data.hasbattery) {
       return hx`
         <div class="alert alert-danger text-center mt-2" role="alert">

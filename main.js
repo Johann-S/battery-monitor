@@ -36,13 +36,13 @@ app.on('ready', () => {
     const contextMenu = Menu.buildFromTemplate([
       {
         label: translator.translate('show'),
-        click() {
+        click () {
           win.show()
         }
       },
       {
         label: translator.translate('quit'),
-        click() {
+        click () {
           app.quit()
         }
       }

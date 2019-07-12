@@ -11,13 +11,15 @@
   },
   "main": "./main.js",
   "engines": {
-		"node": ">=10"
+    "node": ">=10"
   },
   "scripts": {
     "prestart": "webpack --mode development --config webpack.config.js",
-    "start": "electron main.js",
+    "start": "electron .",
     "pack": "webpack --mode production --config webpack.config.js && electron-builder --dir",
-		"dist": "webpack --mode production --config webpack.config.js && electron-builder --windows"
+    "dist": "webpack --mode production --config webpack.config.js && electron-builder --windows",
+    "lint": "standard ./*.js src/**/*.js",
+    "test": "npm run lint"
   },
   "dependencies": {
     "@mdi/font": "^3.7.95",
@@ -30,6 +32,7 @@
   "devDependencies": {
     "electron": "^5.0.6",
     "electron-builder": "^21.0.15",
+    "standard": "^13.0.1",
     "webpack": "^4.35.3",
     "webpack-cli": "^3.3.5"
   },
