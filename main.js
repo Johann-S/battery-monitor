@@ -3,6 +3,7 @@ const path = require('path')
 const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./src/back/battery-helper')
 const Settings = require('./src/back/settings')
 const Translator = require('./src/back/translator')
+const checkUpdates = require('./src/back/auto-updater')
 
 const intervalTrayIcon = 10000
 
@@ -92,6 +93,8 @@ app.on('ready', () => {
       event.preventDefault()
       win.hide()
     })
+
+    checkUpdates()
     win.loadFile('app/index.html')
   })
 })

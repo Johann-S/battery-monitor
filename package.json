@@ -9,6 +9,10 @@
     "email": "johann.servoire@gmail.com",
     "url": "https://www.johann-servoire.fr"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Johann-S/battery-monitor.git"
+  },
   "main": "./main.js",
   "engines": {
     "node": ">=10"
@@ -24,6 +28,8 @@
   "dependencies": {
     "@mdi/font": "^3.7.95",
     "bootstrap": "^4.3.1",
+    "electron-log": "^3.0.6",
+    "electron-updater": "^4.1.2",
     "hyperx": "^2.5.4",
     "jquery": "^3.4.1",
     "preact": "^8.4.2",
@@ -39,6 +45,7 @@
   "build": {
     "appId": "com.johann-s.batterymonitor",
     "win": {
+      "verifyUpdateCodeSignature": false,
       "target": [
         {
           "target": "nsis",
@@ -48,6 +55,24 @@
           ]
         }
       ]
-    }
+    },
+    "mac": {
+			"category": "public.app-category.productivity"
+    },
+    "dmg": {
+			"iconSize": 160,
+			"contents": [
+				{
+					"x": 180,
+					"y": 170
+				},
+				{
+					"x": 480,
+					"y": 170,
+					"type": "link",
+					"path": "/Applications"
+				}
+			]
+		}
   }
 }
