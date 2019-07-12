@@ -5,11 +5,28 @@ const Settings = require('./src/back/settings')
 const Translator = require('./src/back/translator')
 const checkUpdates = require('./src/back/auto-updater')
 
-const intervalTrayIcon = 10000
-
 let appTray
 let win
 let winSettings
+
+const intervalTrayIcon = 10000
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+
+  return
+}
+
+app.on('second-instance', () => {
+  if (win) {
+    if (win.isMinimized()) {
+      myWindow.restore()
+    }
+
+    myWindow.focus()
+  }
+})
 
 app.on('ready', () => {
   const settings = new Settings()
