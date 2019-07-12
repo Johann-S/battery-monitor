@@ -28,6 +28,7 @@ app.on('ready', () => {
       center: true,
       resizable: false,
       maximizable: false,
+      autoHideMenuBar: true,
       webPreferences: {
         nodeIntegration: true
       }
