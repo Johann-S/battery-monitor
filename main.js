@@ -72,6 +72,12 @@ app.on('ready', () => {
     appTray.setToolTip(`Battery monitor (${percent}%)`)
     setInterval(() => monitorBattery(settings, appTray, win), intervalTrayIcon)
 
+    appTray.on('click', () => {
+      if (!win.isVisible()) {
+        win.show()
+      }
+    })
+
     ipcMain.on('get-battery-info', event => {
       getBatteryInformation()
         .then(batteryInformation => event.reply('battery-info', batteryInformation))
@@ -107,6 +113,11 @@ app.on('ready', () => {
     })
 
     win.on('minimize', event => {
+      event.preventDefault()
+      win.hide()
+    })
+
+    win.on('close', event => {
       event.preventDefault()
       win.hide()
     })
