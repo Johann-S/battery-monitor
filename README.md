@@ -1,5 +1,7 @@
 # Battery monitor
 
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 Features:
   - Notify you when your battery is at 100% and you keep charging it
   - Notify you to think about charging your battery when your battery level is < 20%
