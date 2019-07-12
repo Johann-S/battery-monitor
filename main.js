@@ -77,7 +77,7 @@ app.on('ready', () => {
         }
       })
 
-      winSettings.loadFile('settings.html')
+      winSettings.loadFile('app/settings.html')
       winSettings.once('ready-to-show', () => {
         winSettings.show()
       })
@@ -91,6 +91,6 @@ app.on('ready', () => {
       event.preventDefault()
       win.hide()
     })
-    win.loadFile('index.html')
+    win.loadFile('app/index.html')
   })
 })

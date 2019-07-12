@@ -1,18 +1,24 @@
 {
-  "name": "Battery monitor",
+  "name": "battery-monitor",
+  "productName": "Battery Monitor",
   "version": "1.0.0",
   "description": "An app to monitor your battery",
+  "license": "ISC",
   "author": {
     "name": "Johann-S",
-    "email": "johann.servoire@gmail.com"
+    "email": "johann.servoire@gmail.com",
+    "url": "https://www.johann-servoire.fr"
   },
-  "private": true,
+  "main": "./main.js",
+  "engines": {
+		"node": ">=10"
+  },
   "scripts": {
     "prestart": "webpack --mode development --config webpack.config.js",
-    "start": "electron main.js"
+    "start": "electron main.js",
+    "pack": "webpack --mode production --config webpack.config.js && electron-builder --dir",
+		"dist": "webpack --mode production --config webpack.config.js && electron-builder --windows"
   },
-  "keywords": [],
-  "license": "ISC",
   "dependencies": {
     "@mdi/font": "^3.7.95",
     "bootstrap": "^4.3.1",
@@ -28,6 +34,7 @@
     "webpack-cli": "^3.3.5"
   },
   "build": {
+    "appId": "com.johann-s.batterymonitor",
     "win": {
       "target": [
         {

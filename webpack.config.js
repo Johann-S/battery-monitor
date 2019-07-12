@@ -8,7 +8,7 @@ module.exports = {
   target: 'electron-renderer',
   devtool: 'source-map',
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'app/dist'),
     filename: '[name].js'
   }
 }
