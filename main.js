@@ -8,6 +8,7 @@ const checkUpdates = require('./src/back/auto-updater')
 let appTray
 let win
 let winSettings
+let isQuitingApp = false
 
 const intervalTrayIcon = 10000
 const gotTheLock = app.requestSingleInstanceLock()
@@ -60,6 +61,7 @@ app.on('ready', () => {
       {
         label: translator.translate('quit'),
         click () {
+          isQuitingApp = true
           app.quit()
         }
       }
@@ -116,8 +118,10 @@ app.on('ready', () => {
     })
 
     win.on('close', event => {
-      event.preventDefault()
-      win.hide()
+      if (!isQuitingApp) {
+        event.preventDefault()
+        win.hide()
+      }
     })
 
     checkUpdates()
