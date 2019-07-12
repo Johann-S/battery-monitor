@@ -21,10 +21,10 @@ if (!gotTheLock) {
 app.on('second-instance', () => {
   if (win) {
     if (win.isMinimized()) {
-      myWindow.restore()
+      win.restore()
     }
 
-    myWindow.focus()
+    win.focus()
   }
 })
 
