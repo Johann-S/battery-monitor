@@ -1,4 +1,11 @@
-const { app, BrowserWindow, ipcMain, Tray, Menu } = require('electron')
+const electron = require('electron')
+const {
+  app,
+  BrowserWindow,
+  ipcMain,
+  Tray,
+  Menu
+} = electron
 const path = require('path')
 const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./src/back/battery-helper')
 const Settings = require('./src/back/settings')
@@ -123,6 +130,9 @@ app.on('ready', () => {
         win.hide()
       }
     })
+
+    electron.powerMonitor.on('on-ac', () => monitorBattery(settings, appTray, win))
+    electron.powerMonitor.on('on-battery', () => monitorBattery(settings, appTray, win))
 
     checkUpdates()
     win.loadFile('app/index.html')
