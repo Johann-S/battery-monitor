@@ -40,7 +40,7 @@ class App extends Component {
       }
     }
 
-    return h(BatteryInformation, { data: batteryInfo })
+    return h(BatteryInformation, { data: batteryInfo, refreshAuto: this.state.refreshAuto })
   }
 
   changeRefreshAuto () {

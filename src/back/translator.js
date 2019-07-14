@@ -3,11 +3,12 @@ const { app } = require('electron')
 
 // Private
 let data = {}
+let currentLang
 const supportedLang = ['en', 'fr']
 
 class Translator {
   constructor () {
-    let currentLang = app.getLocale()
+    currentLang = app.getLocale()
 
     if (!supportedLang.includes(currentLang)) {
       currentLang = supportedLang[0]
@@ -34,6 +35,10 @@ class Translator {
 
       return key
     }
+  }
+
+  getCurrentLang() {
+    return currentLang
   }
 }
 

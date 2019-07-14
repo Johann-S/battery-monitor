@@ -8,6 +8,7 @@ Features:
   - Notify you to think about charging your battery when your battery level is < 20%
   - Warn you to charge your battery when your battery level is < 10%
   - Display clearly your battery level
+  - Display remaining times for charging and discharging
   - Auto start on login
   - Settings
   - Translations (English and french)

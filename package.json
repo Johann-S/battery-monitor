@@ -30,6 +30,7 @@
     "bootstrap": "^4.3.1",
     "electron-log": "^3.0.6",
     "electron-updater": "^4.1.2",
+    "hh-mm-ss": "^1.2.0",
     "hyperx": "^2.5.4",
     "jquery": "^3.4.1",
     "preact": "^8.4.2",
@@ -57,22 +58,22 @@
       ]
     },
     "mac": {
-			"category": "public.app-category.productivity"
+      "category": "public.app-category.productivity"
     },
     "dmg": {
-			"iconSize": 160,
-			"contents": [
-				{
-					"x": 180,
-					"y": 170
-				},
-				{
-					"x": 480,
-					"y": 170,
-					"type": "link",
-					"path": "/Applications"
-				}
-			]
-		}
+      "iconSize": 160,
+      "contents": [
+        {
+          "x": 180,
+          "y": 170
+        },
+        {
+          "x": 480,
+          "y": 170,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
   }
 }

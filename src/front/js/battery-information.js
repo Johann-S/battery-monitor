@@ -1,12 +1,86 @@
 import { h, Component } from 'preact'
 import { remote } from 'electron'
 import hyperx from 'hyperx'
+import * as TimeFormat from 'hh-mm-ss'
 
 const hx = hyperx(h)
+const refreshInterval = 4000
 
 class BatteryInformation extends Component {
   componentWillMount () {
     this.translator = remote.getGlobal('translator')
+    this.setState({
+      chargingTime: null,
+      dischargingTime: null
+    })
+    navigator.getBattery()
+      .then(({charging, chargingTime, dischargingTime}) => {
+        this.updateBatteryTimes(charging, chargingTime, dischargingTime)
+      })
+  }
+
+  componentDidMount () {
+    this.launchAutoRefresh()
+  }
+
+  componentWillUpdate () {
+    if (this.props.refreshAuto && !this.refreshInterval) {
+      this.launchAutoRefresh()
+    } else {
+      clearInterval(this.refreshInterval)
+      this.refreshInterval = null
+    }
+  }
+
+  launchAutoRefresh() {
+    this.refreshInterval = setInterval(() => {
+      if (document.hidden) {
+        return
+      }
+
+      navigator.getBattery()
+        .then(({charging, chargingTime, dischargingTime}) => {
+          this.updateBatteryTimes(charging, chargingTime, dischargingTime)
+        })
+    }, refreshInterval)
+  }
+
+  updateBatteryTimes (charging, chargingTime, dischargingTime) {
+    const format = 'hh:mm'
+    let time
+    let key
+
+    if (charging && chargingTime === Infinity) {
+      this.setState({
+        chargingTime: `${this.translator.translate('loading')}...`,
+      })
+
+      return
+    }
+
+    if (!charging && dischargingTime === Infinity) {
+      this.setState({
+        dischargingTime: `${this.translator.translate('loading')}...`,
+      })
+
+      return
+    }
+
+    if (charging) {
+      time = chargingTime
+      key = 'chargingTime'
+    } else {
+      time = dischargingTime
+      key = 'dischargingTime'
+    }
+
+    let formattedTime = TimeFormat.fromS(time, format)
+    const splittedFormattedTime = formattedTime.split(':')
+    formattedTime = `${splittedFormattedTime[0]}h ${splittedFormattedTime[1]}min`
+
+    this.setState({
+      [key]: formattedTime
+    })
   }
 
   getBatteryIcon ({ hasbattery, percent, ischarging }) {
@@ -74,13 +148,22 @@ class BatteryInformation extends Component {
     return hx`
       <div class="row mt-3">
         <div class="col-12 pl-0 pr-0 text-center">
-          <span>
-            <strong>${this.translator.translate(data.ischarging ? 'charging' : 'discharging')}</strong>
-          </span>
-          <span id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></span>
-          <span>
+          <div>
+            <div>
+              <strong>${this.translator.translate(data.ischarging ? 'charging' : 'discharging')}</strong>
+            </div>
+            <div>
+              ${
+                data.ischarging
+                  ? hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.chargingTime}</strong></span>`
+                  : hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.dischargingTime}</strong></span>`
+              }
+            </div>
+          </div>
+          <div id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></div>
+          <div>
             <strong>${data.percent}%</strong>
-          </span>
+          </div>
         </div>
       </div>
     `

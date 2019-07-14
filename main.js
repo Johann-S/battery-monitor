@@ -43,7 +43,7 @@ app.on('ready', () => {
       height: 450,
       icon: iconPath,
       center: true,
-      resizable: false,
+      resizable: !app.isPackaged,
       maximizable: false,
       autoHideMenuBar: true,
       webPreferences: {
