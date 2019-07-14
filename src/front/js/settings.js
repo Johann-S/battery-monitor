@@ -1,6 +1,11 @@
 import { h, render, Component } from 'preact'
 import { ipcRenderer, remote } from 'electron'
 import hyperx from 'hyperx'
+import 'bootstrap/js/dist/tab'
+
+/** Components */
+import About from './about'
+
 const hx = hyperx(h)
 
 class Settings extends Component {
@@ -33,21 +38,24 @@ class Settings extends Component {
 
   render () {
     return hx`
-    <div class="h-90">
-      <div class="container mt-2">
-        <div class="row">
-          <div class="col-6 pl-2">
-            <h5>${this.translator.translate('settings')}</h5>
-          </div>
-          <div class="col-6 pr-1">
-            <button type="button" class="btn btn-light float-right" onClick=${() => this.close()}>
-              <span class="mdi mdi-close"></span>
-            </button>
-          </div>
-        </div>
+    <div>
+      <div class="d-flex flex-row-reverse">
+        <button type="button" class="btn btn-light mt-1 mr-1" onClick=${() => this.close()}>
+          <span class="mdi mdi-close"></span>
+        </button>
       </div>
-      <div class="content justify-content-center">
-        <div class="container">
+      <ul class="nav nav-tabs mt-1" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="home" aria-selected="true">
+            ${this.translator.translate('settings')}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="profile" aria-selected="false">About</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div id="settings" class="tab-pane fade mt-4 show active" role="tabpanel" aria-labelledby="settings-tab">
           <form>
             <div class="form-group row">
               <div class="col-sm-12">
@@ -90,6 +98,9 @@ class Settings extends Component {
               </div>
             </div>
           </form>
+        </div>
+        <div id="about" class="tab-pane fade" role="tabpanel" aria-labelledby="about-tab">
+        ${h(About)}
         </div>
       </div>
     </div>
