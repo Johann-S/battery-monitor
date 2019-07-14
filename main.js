@@ -11,6 +11,7 @@ const { getBatteryInformation, getBatteryImage, monitorBattery } = require('./sr
 const Settings = require('./src/back/settings')
 const Translator = require('./src/back/translator')
 const checkUpdates = require('./src/back/auto-updater')
+const { openSettingsWindow } = require('./src/back/settings-window')
 
 let appTray
 let win
@@ -66,6 +67,14 @@ app.on('ready', () => {
         }
       },
       {
+        label: translator.translate('settings'),
+        click () {
+          if (!winSettings) {
+            winSettings = openSettingsWindow(win)
+          }
+        }
+      },
+      {
         label: translator.translate('quit'),
         click () {
           isQuitingApp = true
@@ -95,28 +104,13 @@ app.on('ready', () => {
     })
 
     ipcMain.on('open-settings', () => {
-      winSettings = new BrowserWindow({
-        parent: win,
-        modal: true,
-        show: false,
-        frame: false,
-        width: 530,
-        height: 400,
-        center: true,
-        resizable: false,
-        webPreferences: {
-          nodeIntegration: true
-        }
-      })
-
-      winSettings.loadFile('app/settings.html')
-      winSettings.once('ready-to-show', () => {
-        winSettings.show()
-      })
+      winSettings = openSettingsWindow(win)
     })
+
     ipcMain.on('close-settings', (event, newSettings) => {
       settings.setAll(newSettings)
       winSettings.close()
+      winSettings = null
     })
 
     win.on('minimize', event => {
