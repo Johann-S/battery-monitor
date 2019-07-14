@@ -37,7 +37,7 @@ class Translator {
     }
   }
 
-  getCurrentLang() {
+  getCurrentLang () {
     return currentLang
   }
 }

@@ -14,7 +14,7 @@ class BatteryInformation extends Component {
       dischargingTime: null
     })
     navigator.getBattery()
-      .then(({charging, chargingTime, dischargingTime}) => {
+      .then(({ charging, chargingTime, dischargingTime }) => {
         this.updateBatteryTimes(charging, chargingTime, dischargingTime)
       })
   }
@@ -32,14 +32,14 @@ class BatteryInformation extends Component {
     }
   }
 
-  launchAutoRefresh() {
+  launchAutoRefresh () {
     this.refreshInterval = setInterval(() => {
       if (document.hidden) {
         return
       }
 
       navigator.getBattery()
-        .then(({charging, chargingTime, dischargingTime}) => {
+        .then(({ charging, chargingTime, dischargingTime }) => {
           this.updateBatteryTimes(charging, chargingTime, dischargingTime)
         })
     }, refreshInterval)
@@ -52,7 +52,7 @@ class BatteryInformation extends Component {
 
     if (charging && chargingTime === Infinity) {
       this.setState({
-        chargingTime: `${this.translator.translate('loading')}...`,
+        chargingTime: `${this.translator.translate('loading')}...`
       })
 
       return
@@ -60,7 +60,7 @@ class BatteryInformation extends Component {
 
     if (!charging && dischargingTime === Infinity) {
       this.setState({
-        dischargingTime: `${this.translator.translate('loading')}...`,
+        dischargingTime: `${this.translator.translate('loading')}...`
       })
 
       return
@@ -154,10 +154,10 @@ class BatteryInformation extends Component {
             </div>
             <div>
               ${
-                data.ischarging
-                  ? hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.chargingTime}</strong></span>`
-                  : hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.dischargingTime}</strong></span>`
-              }
+  data.ischarging
+    ? hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.chargingTime}</strong></span>`
+    : hx`<span>${this.translator.translate('remainingTime')}: <strong>${this.state.dischargingTime}</strong></span>`
+}
             </div>
           </div>
           <div id="batteryPreview" class="mdi ${this.getBatteryIcon(data)} align-middle"></div>
