@@ -55,7 +55,8 @@ app.on('ready', () => {
       maximizable: false,
       autoHideMenuBar: true,
       webPreferences: {
-        nodeIntegration: true
+        nodeIntegration: true,
+        devTools: !app.isPackaged
       }
     })
 
