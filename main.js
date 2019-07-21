@@ -64,6 +64,9 @@ app.on('ready', () => {
       {
         label: translator.translate('show'),
         click () {
+          getBatteryInformation()
+            .then(batteryInformation => win.webContents.send('battery-info', batteryInformation))
+
           win.show()
         }
       },
@@ -126,8 +129,16 @@ app.on('ready', () => {
       }
     })
 
-    electron.powerMonitor.on('on-ac', () => monitorBattery(settings, appTray, win))
-    electron.powerMonitor.on('on-battery', () => monitorBattery(settings, appTray, win))
+    electron.powerMonitor.on('on-ac', () => {
+      monitorBattery(settings, appTray, win)
+      getBatteryInformation()
+        .then(batteryInformation => win.webContents.send('battery-info', batteryInformation))
+    })
+    electron.powerMonitor.on('on-battery', () => {
+      monitorBattery(settings, appTray, win)
+      getBatteryInformation()
+        .then(batteryInformation => win.webContents.send('battery-info', batteryInformation))
+    })
 
     checkUpdates()
     win.loadFile('app/index.html')
