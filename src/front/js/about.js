@@ -6,12 +6,12 @@ const hx = hyperx(h)
 const { productName, version, author } = require('../../../package.json')
 
 class About extends Component {
-  openWebsite(ev) {
+  openWebsite (ev) {
     ev.preventDefault()
     shell.openExternal(author.url)
   }
 
-  render() {
+  render () {
     return hx`
       <div class="container">
         <div class="row">
