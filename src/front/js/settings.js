@@ -44,7 +44,7 @@ class Settings extends Component {
           <span class="mdi mdi-close"></span>
         </button>
       </div>
-      <ul class="nav nav-tabs mt-1" role="tablist">
+      <ul class="nav nav-tabs mt-1 w-95" role="tablist">
         <li class="nav-item">
           <a class="nav-link active" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="home" aria-selected="true">
             ${this.translator.translate('settings')}
@@ -54,7 +54,7 @@ class Settings extends Component {
           <a class="nav-link" id="about-tab" data-toggle="tab" href="#about" role="tab" aria-controls="profile" aria-selected="false">About</a>
         </li>
       </ul>
-      <div class="tab-content">
+      <div class="tab-content w-95">
         <div id="settings" class="tab-pane fade mt-4 show active" role="tabpanel" aria-labelledby="settings-tab">
           <form>
             <div class="form-group row">
