@@ -26,22 +26,22 @@
     "test": "npm run lint"
   },
   "dependencies": {
-    "@mdi/font": "^3.8.95",
+    "@mdi/font": "^4.2.95",
     "bootstrap": "^4.3.1",
-    "electron-log": "^3.0.6",
+    "electron-log": "^3.0.7",
     "electron-updater": "^4.1.2",
     "hh-mm-ss": "^1.2.0",
     "hyperx": "^2.5.4",
     "jquery": "^3.4.1",
-    "preact": "^8.4.2",
-    "systeminformation": "^4.14.4"
+    "preact": "^8.5.2",
+    "systeminformation": "^4.14.8"
   },
   "devDependencies": {
-    "electron": "^5.0.8",
-    "electron-builder": "^21.1.5",
-    "standard": "^13.1.0",
-    "webpack": "^4.38.0",
-    "webpack-cli": "^3.3.6"
+    "electron": "^6.0.5",
+    "electron-builder": "^21.2.0",
+    "standard": "^14.0.2",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.7"
   },
   "build": {
     "appId": "com.johann-s.batterymonitor",
