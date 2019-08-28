@@ -4,10 +4,10 @@ const si = require('systeminformation')
 const Translator = require('./translator')
 
 const translator = new Translator()
-const state = {
-  twentyPercentWarned: false,
-  tenPercentWarned: false,
-  chargingOneHundredPercent: false
+const stateWarned = {
+  twentyPercent: false,
+  tenPercent: false,
+  chargingOneHundred: false
 }
 const batteryStates = {
   alert: 'alert.ico',
@@ -100,36 +100,34 @@ const monitorBattery = (settings, appTray, win) => {
       return
     }
 
-    if (percent > 10 && state.tenPercentWarned) {
-      state.tenPercentWarned = false
+    if (percent > 10 && stateWarned.tenPercent) {
+      stateWarned.tenPercentWarned = false
     }
 
-    if (percent > 20 && state.twentyPercentWarned) {
-      state.twentyPercentWarned = false
-    }
-
-    if (ischarging && percent < 100) {
-      state.chargingOneHundredPercent = false
-    }
-
-    if ((ischarging && percent === 100) && !state.chargingOneHundredPercent && settings.get('notif-max')) {
-      const notification = new Notification({
-        title: translator.translate('battery100.title'),
-        body: translator.translate('battery100.message'),
-        icon: iconWhitePath
-      })
-
-      notification.show()
-      state.chargingOneHundredPercent = true
-
-      return
+    if (percent > 20 && stateWarned.twentyPercent) {
+      stateWarned.twentyPercentWarned = false
     }
 
     if (ischarging) {
+      if (percent < 100) {
+        stateWarned.chargingOneHundredPercent = false
+      }
+
+      if (percent === 100 && !stateWarned.chargingOneHundredPercent && settings.get('notif-max')) {
+        const notification = new Notification({
+          title: translator.translate('battery100.title'),
+          body: translator.translate('battery100.message'),
+          icon: iconWhitePath
+        })
+
+        notification.show()
+        stateWarned.chargingOneHundredPercent = true
+      }
+
       return
     }
 
-    if (percent < 10 && !state.tenPercentWarned && settings.get('notif-ten')) {
+    if (percent < 10 && !stateWarned.tenPercent && settings.get('notif-ten')) {
       const notification = new Notification({
         title: translator.translate('battery10.title'),
         body: translator.translate('battery10.message'),
@@ -137,12 +135,12 @@ const monitorBattery = (settings, appTray, win) => {
       })
 
       notification.show()
-      state.tenPercentWarned = true
+      stateWarned.tenPercent = true
 
       return
     }
 
-    if (percent < 20 && percent > 10 && !state.twentyPercentWarned && settings.get('notif-twenty')) {
+    if (percent < 20 && percent > 10 && !stateWarned.twentyPercent && settings.get('notif-twenty')) {
       const notification = new Notification({
         title: translator.translate('battery20.title'),
         body: translator.translate('battery20.message'),
@@ -150,7 +148,7 @@ const monitorBattery = (settings, appTray, win) => {
       })
 
       notification.show()
-      state.twentyPercentWarned = true
+      stateWarned.twentyPercent = true
     }
   })
 }
