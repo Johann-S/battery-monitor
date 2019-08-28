@@ -17,5 +17,3 @@ Features:
 
 Features coming:
   - Mac OS support
-  - About page
-
