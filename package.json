@@ -32,7 +32,7 @@
     "electron-updater": "^4.1.2",
     "hh-mm-ss": "^1.2.0",
     "hyperx": "^2.5.4",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "preact": "^8.5.2",
     "systeminformation": "^4.14.8"
   },
